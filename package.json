@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "bin": {
+    "peruse": "dist/cli.js"
+  },
   "scripts": {
     "tsc": "tsc"
   },
