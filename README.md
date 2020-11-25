@@ -1,7 +1,7 @@
 
-# peruse
+# peruse 👀
 
-Scroll through a list of webpages automatically. This is useful for browsing through operations dashboards.
+Scroll through webpages automatically. This is useful for browsing through operations dashboards.
 
 ### Usage
 
