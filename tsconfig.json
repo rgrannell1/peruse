@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "outDir": "dist",
+    "declaration": false,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "target": "ESNext"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "docs"
+  ]
+}

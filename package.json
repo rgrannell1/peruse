@@ -1,0 +1,16 @@
+{
+  "name": "peruse",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@types/docopt": "^0.6.31",
+    "@types/puppeteer": "^5.4.0",
+    "docopt": "^0.6.2",
+    "puppeteer": "^5.5.0"
+  }
+}
