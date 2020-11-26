@@ -24,6 +24,8 @@ to open a Puppeteer window that scrolls through site alternatively.
 
 #### Shortcuts
 
+Peruse binds the following shortcuts to each target page:
+
 - <kbd>1</kbd>: set speed to slow
 - <kbd>2</kbd>: set speed to medium
 - <kbd>3</kbd>: set speed to fast
