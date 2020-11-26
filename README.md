@@ -5,6 +5,10 @@ Scroll through webpages automatically. This is useful for browsing through opera
 
 ### Usage
 
+```
+peruse --links <path> [--rate <px> | --fast | --medium | --slow] [--executable <executable>]
+```
+
 Create a file containing all links you wish to load.
 
 ```
