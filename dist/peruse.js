@@ -4,6 +4,20 @@ import execa from 'execa';
 import signale from 'signale';
 import puppeteer from 'puppeteer';
 import constants from './constants.js';
+const shuffle = (array) => {
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+};
 /**
  * Read URLs from the provided file-path.
  *
@@ -175,6 +189,7 @@ const getPixelTarget = (args) => {
  */
 const validateArguments = async (args) => {
     return {
+        shuffle: args['--shuffle'],
         path: args['--links'],
         px: getPixelTarget(args),
         executable: args['<executable>']
@@ -189,6 +204,9 @@ const peruse = async (rawArgs) => {
     const args = await validateArguments(rawArgs);
     const fpath = path.resolve(args.path);
     const urls = await readUrls(fpath);
+    if (args.shuffle) {
+        shuffle(urls);
+    }
     let browser;
     try {
         browser = await puppeteer.launch({

@@ -6,7 +6,7 @@ Name:
   peruse - scroll and cycle through pages
 
 Usage:
-  peruse --links <path> [--rate <px> | --fast | --medium | --slow] [--executable <executable>]
+  peruse --links <path> [--rate <px> | --fast | --medium | --slow] [--executable <executable>] [--shuffle]
 
 Description:
   peruse automated the scrolling down through dashboards, tabbing between pages, and starting over task so commonly required

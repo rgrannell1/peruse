@@ -7,6 +7,25 @@ import signale from 'signale'
 import puppeteer from 'puppeteer'
 import constants from './constants.js'
 
+const shuffle = <I>(array:I[]) => {
+  let currentIndex = array.length
+  let temporaryValue
+  let randomIndex
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+
+  return array
+}
+
+
 /**
  * Read URLs from the provided file-path.
  *
@@ -174,6 +193,7 @@ interface PeruseArgs {
   '--fast': Boolean,
   '--medium': Boolean,
   '--slow': Boolean,
+  '--shuffle': Boolean,
   '<executable>'?: string
 }
 
@@ -210,6 +230,7 @@ const getPixelTarget = (args:PeruseArgs) => {
  */
 const validateArguments = async (args:PeruseArgs) => {
   return {
+    shuffle: args['--shuffle'],
     path: args['--links'],
     px: getPixelTarget(args),
     executable: args['<executable>']
@@ -226,6 +247,10 @@ const peruse = async (rawArgs: PeruseArgs) => {
 
   const fpath = path.resolve(args.path)
   const urls = await readUrls(fpath)
+
+  if (args.shuffle) {
+    shuffle(urls)
+  }
 
   let browser
   try {
