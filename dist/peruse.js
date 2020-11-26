@@ -41,13 +41,40 @@ const readUrls = async (fpath) => {
  */
 const scrollPage = async (page, opts) => {
     await page.evaluate(async (opts) => {
+        // -- bind shortcuts to control speed.
+        const state = {
+            px: opts.distance
+        };
+        const rates = {
+            slow: Math.round(100 / (1000 / 25)),
+            medium: Math.round(200 / (1000 / 25)),
+            fast: Math.round(300 / (1000 / 25))
+        };
+        window.document.addEventListener("keydown", event => {
+            if (event.key === '1') {
+                state.px = rates.slow;
+            }
+            if (event.key === '2') {
+                state.px = rates.medium;
+            }
+            if (event.key === '3') {
+                state.px = rates.fast;
+            }
+            if (event.code === 'Space') {
+                state.px = state.px === 0
+                    ? rates.slow
+                    : 0;
+            }
+            event.preventDefault();
+        });
+        // -- scroll.
         await new Promise(resolve => {
             let totalHeight = 0;
-            let distance = opts.distance;
             let timer = setInterval(() => {
                 let scrollHeight = document.body.scrollHeight;
-                window.scrollBy(0, distance);
-                totalHeight += distance;
+                window.scrollBy(0, state.px);
+                document.title = `${((totalHeight / scrollHeight) * 100).toFixed()}%`;
+                totalHeight += state.px;
                 if (totalHeight >= scrollHeight) {
                     clearInterval(timer);
                     resolve();
@@ -85,7 +112,7 @@ const browsePages = async (browser, urls, rate) => {
         }
         // -- they see me scrollin'...
         try {
-            let distance = rate / (1000 / 25);
+            let distance = Math.round(rate / (1000 / 25));
             await scrollPage(page, {
                 distance,
                 frequency: 25
@@ -93,13 +120,6 @@ const browsePages = async (browser, urls, rate) => {
         }
         catch (err) {
             // -- they hatin'
-            console.log(err.message);
-            console.log(err.message);
-            console.log(err.message);
-            console.log(err.message);
-            console.log(err.message);
-            console.log(err.message);
-            console.log(err.message);
             if (err.message.includes('Target closed')) {
                 signale.success(`peruse exiting (${stats.pageCount} pages visited)`);
                 process.exit(0);
