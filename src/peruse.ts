@@ -86,13 +86,13 @@ const scrollPage = async (page:puppeteer.Page, opts:AutoScollOpts) => {
       let totalHeight = 0
 
       let timer = setInterval(() => {
-        let scrollHeight = document.body.scrollHeight
+        let scrollHeight = document.body.scrollHeight - window.innerHeight
         window.scrollBy(0, state.px)
 
         document.title = `${((totalHeight / scrollHeight) * 100).toFixed()}%`
 
         totalHeight += state.px
-        if (totalHeight >= scrollHeight) {
+        if (totalHeight >= (scrollHeight)) {
           clearInterval(timer)
           resolve()
         }

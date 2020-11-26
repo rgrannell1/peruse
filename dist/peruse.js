@@ -71,11 +71,11 @@ const scrollPage = async (page, opts) => {
         await new Promise(resolve => {
             let totalHeight = 0;
             let timer = setInterval(() => {
-                let scrollHeight = document.body.scrollHeight;
+                let scrollHeight = document.body.scrollHeight - window.innerHeight;
                 window.scrollBy(0, state.px);
                 document.title = `${((totalHeight / scrollHeight) * 100).toFixed()}%`;
                 totalHeight += state.px;
-                if (totalHeight >= scrollHeight) {
+                if (totalHeight >= (scrollHeight)) {
                     clearInterval(timer);
                     resolve();
                 }
