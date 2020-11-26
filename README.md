@@ -5,6 +5,10 @@ Scroll through webpages automatically. This is useful for browsing through opera
 
 ### Usage
 
+```
+peruse --links <path> [--rate <px> | --fast | --medium | --slow] [--executable <executable>]
+```
+
 Create a file containing all links you wish to load.
 
 ```
@@ -16,7 +20,7 @@ then run
 peruse --links links.txt
 ```
 
-to open a Puppeteer window that scrolls through site alternatively. To exit, hit `Ctrl + c`
+to open a Puppeteer window that scrolls through site alternatively. 
 
 ### Stability Index
 
