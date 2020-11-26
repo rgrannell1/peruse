@@ -9,7 +9,7 @@ Scroll through webpages automatically. This is useful for browsing through opera
 peruse --links <path> [--rate <px> | --fast | --medium | --slow] [--executable <executable>]
 ```
 
-Create a file containing all links you wish to load.
+Create a file containing all links you wish to load. If this file is executable, stdout is intercepted upon running this file.
 
 ```
 https://www.lipsum.com/
@@ -21,6 +21,15 @@ peruse --links links.txt
 ```
 
 to open a Puppeteer window that scrolls through site alternatively. 
+
+#### Shortcuts
+
+Peruse binds the following shortcuts to each target page:
+
+- <kbd>1</kbd>: set speed to slow
+- <kbd>2</kbd>: set speed to medium
+- <kbd>3</kbd>: set speed to fast
+- <kbd>`Space`</kbd>: pause / unpause
 
 ### Stability Index
 
