@@ -9,7 +9,7 @@ Scroll through webpages automatically. This is useful for browsing through opera
 peruse --links <path> [--rate <px> | --fast | --medium | --slow] [--executable <executable>]
 ```
 
-Create a file containing all links you wish to load.
+Create a file containing all links you wish to load. If this file is executable, stdout is intercepted upon running this file.
 
 ```
 https://www.lipsum.com/
