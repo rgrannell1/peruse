@@ -20,7 +20,7 @@ then run
 peruse --links links.txt
 ```
 
-to open a Puppeteer window that scrolls through site alternatively. To exit, hit `Ctrl + c`
+to open a Puppeteer window that scrolls through site alternatively. 
 
 ### Stability Index
 
