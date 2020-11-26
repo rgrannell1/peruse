@@ -22,6 +22,13 @@ peruse --links links.txt
 
 to open a Puppeteer window that scrolls through site alternatively. 
 
+#### Shortcuts
+
+- <kbd>1</kbd>: set speed to slow
+- <kbd>2</kbd>: set speed to medium
+- <kbd>3</kbd>: set speed to fast
+- <kbd>`Space`</kbd>: pause / unpause
+
 ### Stability Index
 
 1, Experimental - This project might die, it's undertested and underdocumented, and redesigns and breaking changes are likely
