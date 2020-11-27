@@ -124,6 +124,15 @@ const stats = {
   pageCount: 0
 }
 
+const stall = async (start:number) => {
+  // -- to stop excessively fast looping
+  if (Date.now() - start < 3_000) {
+    await new Promise(resolve => {
+      setTimeout(resolve, 3_000)
+    })
+  }
+}
+
 /**
  * Load each provided page, and scroll though them endlessly.
  *
@@ -148,6 +157,7 @@ const browsePages = async (browser: puppeteer.Browser, urls: string[], rate:numb
     } catch (err) {
       signale.warn(`failed to load ${focusUrl}, skipping...    ${err.message}`)
       await page.close()
+      await stall(now)
       continue
     }
 
@@ -170,12 +180,7 @@ const browsePages = async (browser: puppeteer.Browser, urls: string[], rate:numb
       await page.close()
     }
 
-    // -- to stop excessively fast looping
-    if (Date.now() - now < 3_000) {
-      await new Promise(resolve => {
-        setTimeout(resolve, 3_000)
-      })
-    }
+    await stall(now)
 
     stats.pageCount++
     idx++
@@ -257,7 +262,8 @@ const peruse = async (rawArgs: PeruseArgs) => {
     browser = await puppeteer.launch({
       timeout: constants.timeouts.default,
       headless: false,
-      defaultViewport: null
+      defaultViewport: null,
+      executablePath: args.executable
     })
   } catch (err) {
     if (typeof args.executable !== 'undefined') {
