@@ -4,24 +4,13 @@ import execa from 'execa';
 import signale from 'signale';
 import puppeteer from 'puppeteer';
 import constants from './constants.js';
-const shuffle = (array) => {
-    let currentIndex = array.length;
-    let temporaryValue;
-    let randomIndex;
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
-};
+import { shuffle } from './utils.js';
 /**
  * Read URLs from the provided file-path.
  *
- * @param fpath
+ * @param fpath the URL source-path
+ *
+ * @returns a list of non-empty, validated URLs
  */
 const readUrls = async (fpath) => {
     let isExecutable = false;
@@ -45,9 +34,16 @@ const readUrls = async (fpath) => {
     else {
         content = await fs.promises.readFile(fpath);
     }
-    return content.toString().split('\n');
+    return content.toString()
+        .split('\n')
+        .filter(line => line.length > 0);
+};
+const perRefresh = (perSecond) => {
+    const refreshesPerSecond = (1000 / 25);
+    return Math.round(100 / refreshesPerSecond);
 };
 /**
+ * Scroll down the page.
  *
  * @param page
  * @param opts
@@ -60,9 +56,9 @@ const scrollPage = async (page, opts) => {
             px: opts.distance
         };
         const rates = {
-            slow: Math.round(100 / (1000 / 25)),
-            medium: Math.round(200 / (1000 / 25)),
-            fast: Math.round(300 / (1000 / 25))
+            slow: perRefresh(100),
+            medium: perRefresh(200),
+            fast: perRefresh(300)
         };
         window.document.addEventListener("keydown", event => {
             if (event.key === '1') {
@@ -98,7 +94,7 @@ const scrollPage = async (page, opts) => {
     }, opts);
 };
 const stats = {
-    pageCount: 0
+    pageCount: 1
 };
 const stall = async (start) => {
     // -- to stop excessively fast looping
@@ -131,6 +127,7 @@ const browsePages = async (browser, urls, rate) => {
             signale.warn(`failed to load ${focusUrl}, skipping...    ${err.message}`);
             await page.close();
             await stall(now);
+            idx++;
             continue;
         }
         // -- they see me scrollin'...
@@ -196,7 +193,7 @@ const validateArguments = async (args) => {
         shuffle: args['--shuffle'],
         path: args['--links'],
         px: getPixelTarget(args),
-        executable: args['<executable>']
+        executable: args['--executable']
     };
 };
 /**

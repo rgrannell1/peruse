@@ -20,7 +20,7 @@ then run
 peruse --links links.txt
 ```
 
-to open a Puppeteer window that scrolls through site alternatively. 
+to open a Puppeteer window that scrolls through site alternatively.
 
 #### Shortcuts
 
@@ -30,6 +30,16 @@ Peruse binds the following shortcuts to each target page:
 - <kbd>2</kbd>: set speed to medium
 - <kbd>3</kbd>: set speed to fast
 - <kbd>`Space`</kbd>: pause / unpause
+
+### Tests
+
+Tests that:
+
+- scrolling stops / starts in the correct locations
+- the page title dynamically updates
+- pause and unpause works
+- each speed scrolls at the expected rate
+
 
 ### Stability Index
 
